@@ -1,10 +1,10 @@
 const express = require("express");
-// const cors=require("cors")
+const cors=require("cors")
  
 const dotenv = require("dotenv").config();
 const mongoose = require("mongoose");
 const Book = require("./model/bookModel");
- 
+ const multer=require("multer");
 
 
 const PORT = process.env.PORT;
@@ -13,42 +13,12 @@ const app = express();
 
 
 //middlewares
-
-// const logger = (req,res,next)=>{
-//     console.log("MIddlearew");
-//     console.log(req.method);
-//     next()
-// }
-
+ 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
-// app.use(cors())
-
-// app.use("/api/tasks",taskRoutes);
-
-
-// ---------- -------------
-// ROUTES--- 
-
-app.get("/",(req,res)=>{
-    res.send("Home ... page");
-})
-app.post("/api/books", async(req,res)=>{
-
-    try {
-
-        const book=await Book.create(req.body)
-
-        res.status(200).json(book)
-       
-        
-    } catch (error) {
-      res.status(500).json({msg:error.message})
-    }
-    // console.log(req.body);
-    // res.send("book created");
-})
+app.use(cors())
  
+
  
  
 
@@ -62,7 +32,109 @@ mongoose
   .catch((err) => console.log(err));
 
 
+  // storage 
+
+  const Storage=multer.diskStorage({
+    destination:'uploads',
+    filename:(req,file,cb) =>{
+           cb(null, file.originalname);
+    }
+  })
+
+
+  const upload =multer({
+    storage:Storage
+  }).single('testImage')
 
 
 
  
+// ---------- -------------
+// ROUTES--- 
+
+app.get("/api/books",async(req,res)=>{
+
+  try {
+    const books=await Book.find();
+    res.status(200).json(books);
+  } catch (error) {
+
+    res.status(500).json({ msg: error.message });
+    
+  }
+
+
+ 
+})
+
+
+// app.post("/api/books", (req,res)=>{
+
+//   upload(req,res, (err) =>{
+//     if(err){
+//       console.log(err);
+//     }
+//     else{
+
+     
+
+//         const book= new Book({
+//           bookName:req.body.bookName,
+//           authorName:req.body.authorName,
+//           price:req.body.price,
+//           award:req.body.award,
+//           image:{
+//             data:req.file.filename,
+//             contentType:'image/png'
+//           }
+//         })     
+//         book.save();
+//     }
+    
+
+//   })
+ 
+
+// })
+
+
+
+
+// app.post("/api/books", (req,res)=>{
+
+//   upload(req,res, (err) =>{
+//     if(err){
+//       console.log(err);
+//     }
+//     else{
+
+//       try {
+
+//         const book= Book.create(req.body)
+  
+//         res.status(200).json(book)
+       
+        
+//     } catch (error) {
+//       res.status(500).json({msg:error.message})
+//     }
+
+//     }
+//   } )
+
+
+// })
+
+
+app.post("/api/books", async(req,res)=>{
+  try {
+    const newBook= req.body;
+
+    const book=new Book(newBook);
+    await book.save();
+  
+      res.status(200).json(book)
+  } catch (error) {
+    res.status(500).json({msg:error.message})
+  }
+})

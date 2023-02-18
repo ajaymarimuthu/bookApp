@@ -15,10 +15,21 @@ const mongoose=require("mongoose");
         price:{
             type:Number,
             required:true
-        }
+        },
+        award:{
+            type:String,
+            required:true
+        },
         // image:{
-        //     type:
+        //     data:Buffer,
+        //     contentType:String
+
         // }
+        image:{
+            type:String,
+            required:true
+
+        }
 
     },
     {
