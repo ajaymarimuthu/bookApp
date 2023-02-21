@@ -1,0 +1,57 @@
+.Header{
+    /* border: 2px solid black; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom:0;
+     
+ 
+}
+
+.logo{
+    max-width: 6rem;
+
+}
+
+ 
+ 
+
+   
+.account{
+    /* border: 2px solid yellow; */
+    margin: 2rem;
+    
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0.1rem;
+    gap: 1rem;
+
+ 
+
+}
+
+#myaccount{
+    /* padding-bottom: 0.2rem; */
+    /* border: 1px solid green; */
+    /* color:red; */
+    margin-top: 0.8rem;
+    
+}
+
+#angle{
+    border: none;
+    background-color: white;
+      color:red;
+}
+#heart{
+    color:red;
+}
+#user{
+    background-color: brown;
+    color: white;
+    border-radius: 50%;
+     border: 1px solid red;
+     font-size: 1.5rem;
+}

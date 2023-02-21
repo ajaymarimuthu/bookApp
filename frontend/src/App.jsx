@@ -1,16 +1,20 @@
 
 import './App.css'
 import React, { useState, useEffect } from 'react'
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios'
 import { useDispatch, useSelector } from "react-redux"
 import { fetchBooks } from './store/BookSlice';
 import { bookActions } from './store/BookSlice';
-
+import Header from './components/Header/Header';
+import Navbar from './components/Navbar/Navbar';
+import ImageComponent from './components/ImageComponent/ImageComponent';
+import Carousel from "./components/Carousel/Carousel"
+import BookSection from './components/BookSection/BookSection';
 
 function App() {
 
-  const [tasks, setTasks] = useState([])
+  const [books, setBooks] = useState([])
   // const [isLoading, setIsLoading] = useState(false)
 
 
@@ -27,36 +31,19 @@ function App() {
 }, [])
 
 
-  // const getTasks = async () => {
-  //   setIsLoading(true)
-
-  //   try {
-
-  //     const {data} = await axios.get("http://localhost:3000/api/books")
-  //     console.log(data);
-  //     setTasks(data);
-  //     setIsLoading(false)
-
-
-
-  //   } catch (error) {
-
-  //     console.log(error);
-  //     setIsLoading(false)
-
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   getTasks();
-  // }, [])
-
+ 
   return (
     <div className="App">
-      {/* Hiiiiiiiiiiiii */}
+
+      <Header/>
+      <Navbar/>
+      <ImageComponent/>
+      <Carousel/>
+      <BookSection/>
+     
   
  
-          <>
+          {/* <>
          
           {products.length > 0 &&   products.map((product, index) => {
               return <div key={index}>
@@ -66,7 +53,7 @@ function App() {
             }) }
 
            
-          </>
+          </> */}
     
     </div>
   )
